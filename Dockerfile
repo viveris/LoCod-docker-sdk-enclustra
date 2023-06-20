@@ -3,7 +3,7 @@ MAINTAINER Julien ARMENGAUD <julien.armengaud@viveris.fr>
 LABEL description="Docker with Petalinux 2022.1 SDK for Enclustra board"
 
 
-# Reset workdir
+# Reset workdir and user
 WORKDIR /
 
 
@@ -15,6 +15,7 @@ RUN	apt update && \
 
 # Copy SDK to docker
 COPY sdk-enclustra.sh /
+RUN chmod 777 sdk-enclustra.sh
 
 
 # Install SDK
@@ -23,5 +24,7 @@ RUN 	mkdir /opt/petalinux-sdk && \
 	rm -rf sdk-enclustra.sh
 
 
-# Change workdir
-WORKDIR /root
+# Workdir
+RUN mkdir /workdir
+RUN chmod -R 777 /workdir
+WORKDIR /workdir
